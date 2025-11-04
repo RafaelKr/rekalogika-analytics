@@ -30,9 +30,15 @@ final readonly class RefreshAgent
             return;
         }
 
+        $strategy = new DefaultRefreshAgentStrategy(
+            minimumAge: null,
+            minimumIdleDelay: null,
+            maximumAge: null,
+        );
+
         $this->summaryRefresherFactory
             ->createSummaryRefresher($message->getSummaryClass())
-            ->refresh();
+            ->refresh($strategy);
 
         $this->refreshAgentLock->release($class);
     }
